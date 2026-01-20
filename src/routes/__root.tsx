@@ -16,6 +16,7 @@ import type { QueryClient } from '@tanstack/react-query'
 
 import type { TRPCRouter } from '@/integrations/trpc/router'
 import type { TRPCOptionsProxy } from '@trpc/tanstack-react-query'
+import BreakporintIndicator from '@/components/BreakporintIndicator'
 
 interface MyRouterContext {
   queryClient: QueryClient
@@ -55,6 +56,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
+        <BreakporintIndicator/>
         <Header />
         {children}
         <TanStackDevtools

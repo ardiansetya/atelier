@@ -14,6 +14,8 @@ import { Route as WomenIndexRouteImport } from './routes/women/index'
 import { Route as ShopIndexRouteImport } from './routes/shop/index'
 import { Route as NewIndexRouteImport } from './routes/new/index'
 import { Route as MenIndexRouteImport } from './routes/men/index'
+import { Route as authRegisterRouteImport } from './routes/(auth)/register'
+import { Route as authLoginRouteImport } from './routes/(auth)/login'
 import { Route as ApiTrpcSplatRouteImport } from './routes/api.trpc.$'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
@@ -42,6 +44,16 @@ const MenIndexRoute = MenIndexRouteImport.update({
   path: '/men/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const authRegisterRoute = authRegisterRouteImport.update({
+  id: '/(auth)/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const authLoginRoute = authLoginRouteImport.update({
+  id: '/(auth)/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiTrpcSplatRoute = ApiTrpcSplatRouteImport.update({
   id: '/api/trpc/$',
   path: '/api/trpc/$',
@@ -55,6 +67,8 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/login': typeof authLoginRoute
+  '/register': typeof authRegisterRoute
   '/men/': typeof MenIndexRoute
   '/new/': typeof NewIndexRoute
   '/shop/': typeof ShopIndexRoute
@@ -64,6 +78,8 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/login': typeof authLoginRoute
+  '/register': typeof authRegisterRoute
   '/men': typeof MenIndexRoute
   '/new': typeof NewIndexRoute
   '/shop': typeof ShopIndexRoute
@@ -74,6 +90,8 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/(auth)/login': typeof authLoginRoute
+  '/(auth)/register': typeof authRegisterRoute
   '/men/': typeof MenIndexRoute
   '/new/': typeof NewIndexRoute
   '/shop/': typeof ShopIndexRoute
@@ -85,6 +103,8 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/login'
+    | '/register'
     | '/men/'
     | '/new/'
     | '/shop/'
@@ -92,10 +112,21 @@ export interface FileRouteTypes {
     | '/api/auth/$'
     | '/api/trpc/$'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/men' | '/new' | '/shop' | '/women' | '/api/auth/$' | '/api/trpc/$'
+  to:
+    | '/'
+    | '/login'
+    | '/register'
+    | '/men'
+    | '/new'
+    | '/shop'
+    | '/women'
+    | '/api/auth/$'
+    | '/api/trpc/$'
   id:
     | '__root__'
     | '/'
+    | '/(auth)/login'
+    | '/(auth)/register'
     | '/men/'
     | '/new/'
     | '/shop/'
@@ -106,6 +137,8 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  authLoginRoute: typeof authLoginRoute
+  authRegisterRoute: typeof authRegisterRoute
   MenIndexRoute: typeof MenIndexRoute
   NewIndexRoute: typeof NewIndexRoute
   ShopIndexRoute: typeof ShopIndexRoute
@@ -151,6 +184,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MenIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(auth)/register': {
+      id: '/(auth)/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof authRegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(auth)/login': {
+      id: '/(auth)/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof authLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/trpc/$': {
       id: '/api/trpc/$'
       path: '/api/trpc/$'
@@ -170,6 +217,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  authLoginRoute: authLoginRoute,
+  authRegisterRoute: authRegisterRoute,
   MenIndexRoute: MenIndexRoute,
   NewIndexRoute: NewIndexRoute,
   ShopIndexRoute: ShopIndexRoute,
