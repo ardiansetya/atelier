@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as WomenIndexRouteImport } from './routes/women/index'
 import { Route as ShopIndexRouteImport } from './routes/shop/index'
+import { Route as ProductsIndexRouteImport } from './routes/products/index'
 import { Route as NewIndexRouteImport } from './routes/new/index'
 import { Route as MenIndexRouteImport } from './routes/men/index'
 import { Route as authRegisterRouteImport } from './routes/(auth)/register'
@@ -32,6 +33,11 @@ const WomenIndexRoute = WomenIndexRouteImport.update({
 const ShopIndexRoute = ShopIndexRouteImport.update({
   id: '/shop/',
   path: '/shop/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsIndexRoute = ProductsIndexRouteImport.update({
+  id: '/products/',
+  path: '/products/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NewIndexRoute = NewIndexRouteImport.update({
@@ -71,6 +77,7 @@ export interface FileRoutesByFullPath {
   '/register': typeof authRegisterRoute
   '/men/': typeof MenIndexRoute
   '/new/': typeof NewIndexRoute
+  '/products/': typeof ProductsIndexRoute
   '/shop/': typeof ShopIndexRoute
   '/women/': typeof WomenIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -82,6 +89,7 @@ export interface FileRoutesByTo {
   '/register': typeof authRegisterRoute
   '/men': typeof MenIndexRoute
   '/new': typeof NewIndexRoute
+  '/products': typeof ProductsIndexRoute
   '/shop': typeof ShopIndexRoute
   '/women': typeof WomenIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -94,6 +102,7 @@ export interface FileRoutesById {
   '/(auth)/register': typeof authRegisterRoute
   '/men/': typeof MenIndexRoute
   '/new/': typeof NewIndexRoute
+  '/products/': typeof ProductsIndexRoute
   '/shop/': typeof ShopIndexRoute
   '/women/': typeof WomenIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -107,6 +116,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/men/'
     | '/new/'
+    | '/products/'
     | '/shop/'
     | '/women/'
     | '/api/auth/$'
@@ -118,6 +128,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/men'
     | '/new'
+    | '/products'
     | '/shop'
     | '/women'
     | '/api/auth/$'
@@ -129,6 +140,7 @@ export interface FileRouteTypes {
     | '/(auth)/register'
     | '/men/'
     | '/new/'
+    | '/products/'
     | '/shop/'
     | '/women/'
     | '/api/auth/$'
@@ -141,6 +153,7 @@ export interface RootRouteChildren {
   authRegisterRoute: typeof authRegisterRoute
   MenIndexRoute: typeof MenIndexRoute
   NewIndexRoute: typeof NewIndexRoute
+  ProductsIndexRoute: typeof ProductsIndexRoute
   ShopIndexRoute: typeof ShopIndexRoute
   WomenIndexRoute: typeof WomenIndexRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
@@ -168,6 +181,13 @@ declare module '@tanstack/react-router' {
       path: '/shop'
       fullPath: '/shop/'
       preLoaderRoute: typeof ShopIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products/': {
+      id: '/products/'
+      path: '/products'
+      fullPath: '/products/'
+      preLoaderRoute: typeof ProductsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/new/': {
@@ -221,6 +241,7 @@ const rootRouteChildren: RootRouteChildren = {
   authRegisterRoute: authRegisterRoute,
   MenIndexRoute: MenIndexRoute,
   NewIndexRoute: NewIndexRoute,
+  ProductsIndexRoute: ProductsIndexRoute,
   ShopIndexRoute: ShopIndexRoute,
   WomenIndexRoute: WomenIndexRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
