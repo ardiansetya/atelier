@@ -10,12 +10,36 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as WomenIndexRouteImport } from './routes/women/index'
+import { Route as ShopIndexRouteImport } from './routes/shop/index'
+import { Route as NewIndexRouteImport } from './routes/new/index'
+import { Route as MenIndexRouteImport } from './routes/men/index'
 import { Route as ApiTrpcSplatRouteImport } from './routes/api.trpc.$'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WomenIndexRoute = WomenIndexRouteImport.update({
+  id: '/women/',
+  path: '/women/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShopIndexRoute = ShopIndexRouteImport.update({
+  id: '/shop/',
+  path: '/shop/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewIndexRoute = NewIndexRouteImport.update({
+  id: '/new/',
+  path: '/new/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MenIndexRoute = MenIndexRouteImport.update({
+  id: '/men/',
+  path: '/men/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiTrpcSplatRoute = ApiTrpcSplatRouteImport.update({
@@ -31,30 +55,61 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/men/': typeof MenIndexRoute
+  '/new/': typeof NewIndexRoute
+  '/shop/': typeof ShopIndexRoute
+  '/women/': typeof WomenIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/men': typeof MenIndexRoute
+  '/new': typeof NewIndexRoute
+  '/shop': typeof ShopIndexRoute
+  '/women': typeof WomenIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/men/': typeof MenIndexRoute
+  '/new/': typeof NewIndexRoute
+  '/shop/': typeof ShopIndexRoute
+  '/women/': typeof WomenIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/auth/$' | '/api/trpc/$'
+  fullPaths:
+    | '/'
+    | '/men/'
+    | '/new/'
+    | '/shop/'
+    | '/women/'
+    | '/api/auth/$'
+    | '/api/trpc/$'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/auth/$' | '/api/trpc/$'
-  id: '__root__' | '/' | '/api/auth/$' | '/api/trpc/$'
+  to: '/' | '/men' | '/new' | '/shop' | '/women' | '/api/auth/$' | '/api/trpc/$'
+  id:
+    | '__root__'
+    | '/'
+    | '/men/'
+    | '/new/'
+    | '/shop/'
+    | '/women/'
+    | '/api/auth/$'
+    | '/api/trpc/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  MenIndexRoute: typeof MenIndexRoute
+  NewIndexRoute: typeof NewIndexRoute
+  ShopIndexRoute: typeof ShopIndexRoute
+  WomenIndexRoute: typeof WomenIndexRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   ApiTrpcSplatRoute: typeof ApiTrpcSplatRoute
 }
@@ -66,6 +121,34 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/women/': {
+      id: '/women/'
+      path: '/women'
+      fullPath: '/women/'
+      preLoaderRoute: typeof WomenIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shop/': {
+      id: '/shop/'
+      path: '/shop'
+      fullPath: '/shop/'
+      preLoaderRoute: typeof ShopIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/new/': {
+      id: '/new/'
+      path: '/new'
+      fullPath: '/new/'
+      preLoaderRoute: typeof NewIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/men/': {
+      id: '/men/'
+      path: '/men'
+      fullPath: '/men/'
+      preLoaderRoute: typeof MenIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/trpc/$': {
@@ -87,6 +170,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  MenIndexRoute: MenIndexRoute,
+  NewIndexRoute: NewIndexRoute,
+  ShopIndexRoute: ShopIndexRoute,
+  WomenIndexRoute: WomenIndexRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiTrpcSplatRoute: ApiTrpcSplatRoute,
 }
